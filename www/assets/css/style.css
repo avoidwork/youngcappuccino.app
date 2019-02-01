@@ -3,18 +3,19 @@ html, body {
   min-width: 100%;
   background: #ffffff;
   font-size: 16px;
-  line-height: 16px; }
+  line-height: 16px;
+  color: #000000; }
 
 a {
   color: #784015; }
   a:hover {
-    color: #6f6f6f; }
+    color: #B96220; }
 
 .hero .title {
   color: #6B3308; }
   .hero .title img {
     width: 60%; }
 .hero .subtitle {
-  color: #222222; }
+  color: #361D09; }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,8 +1,10 @@
 $ten: 10px;
 $white: #ffffff;
 $link: #784015;
+$hover: #B96220;
 $title: #6B3308;
-$subtitle: #222222;
+$subtitle: #361D09;
+$black: #000000;
 
 html, body {
   min-height: 100%;
@@ -10,13 +12,14 @@ html, body {
   background: $white;
   font-size: $ten * 1.6;
   line-height: $ten * 1.6;
+  color: $black;
 }
 
 a {
   color: $link;
 
   &:hover {
-    color: lighten($subtitle, 30%);
+    color: $hover;
   }
 }
 
