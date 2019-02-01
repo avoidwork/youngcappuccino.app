@@ -1,0 +1,25 @@
+$ten: 10px;
+$white: #ffffff;
+$blue: #00527d;
+
+html, body {
+  min-height: 100%;
+  min-width: 100%;
+  background: $white;
+  font-size: $ten * 1.6;
+  line-height: $ten * 1.6;
+}
+
+a {
+  color: $blue;
+
+  &:hover {
+    color: darken($blue, 80%);
+  }
+}
+
+.hero {
+  h1.title img {
+    width: 60%;
+  }
+}
