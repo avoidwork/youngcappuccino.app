@@ -6,11 +6,15 @@ html, body {
   line-height: 16px; }
 
 a {
-  color: #00527d; }
+  color: #784015; }
   a:hover {
-    color: black; }
+    color: #6f6f6f; }
 
-.hero h1.title img {
-  width: 60%; }
+.hero .title {
+  color: #6B3308; }
+  .hero .title img {
+    width: 60%; }
+.hero .subtitle {
+  color: #222222; }
 
 /*# sourceMappingURL=style.css.map */

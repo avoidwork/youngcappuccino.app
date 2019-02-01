@@ -1,6 +1,8 @@
 $ten: 10px;
 $white: #ffffff;
-$blue: #00527d;
+$link: #784015;
+$title: #6B3308;
+$subtitle: #222222;
 
 html, body {
   min-height: 100%;
@@ -11,15 +13,23 @@ html, body {
 }
 
 a {
-  color: $blue;
+  color: $link;
 
   &:hover {
-    color: darken($blue, 80%);
+    color: lighten($subtitle, 30%);
   }
 }
 
 .hero {
-  h1.title img {
-    width: 60%;
+  .title {
+    color: $title;
+
+    img {
+      width: 60%;
+    }
+  }
+
+  .subtitle {
+    color: $subtitle;
   }
 }
