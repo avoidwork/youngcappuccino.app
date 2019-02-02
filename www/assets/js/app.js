@@ -1,5 +1,5 @@
 (async function (navigator, render) {
-	async function cityByIP () {
+	async function geoByIP () {
 		const res = await fetch("//api.youngcappuccino.app/api/geo", {
 			method: "GET",
 			mode: "cors"
@@ -16,19 +16,27 @@
 		return result;
 	}
 
+	function locale (arg = '') {
+		return arg.replace(/[^a-b+]/, "");
+	}
+
+	function language () {
+		return "languages" in navigator ? navigator.languages[0] : navigator.language;
+	}
+
 	if ("geolocation" in navigator) {
-		const city = await cityByIP(),
+		const geo = await geoByIP(),
 			$el = document.querySelector("#city");
 
 		render(() => {
-			$el.innerText = `for ${city.city}`;
+			$el.innerText = `for ${geo.city.names[locale(language())]}`;
 		});
 	} else {
-		const city = await cityByIP(),
+		const geo = await geoByIP(),
 			$el = document.querySelector("#city");
 
 		render(() => {
-			$el.innerText = `for ${city.city}`;
+			$el.innerText = `for ${geo.city.names[locale(language())]}`;
 		});
 	}
 })(navigator, window.requestAnimationFrame);
