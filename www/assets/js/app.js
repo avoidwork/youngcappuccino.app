@@ -16,7 +16,7 @@
 		return result;
 	}
 
-	function locale (arg = '') {
+	function locale (arg = "") {
 		return arg.replace(/[^a-z]/g, "")
 	}
 
