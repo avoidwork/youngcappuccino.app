@@ -1,4 +1,4 @@
-(async function (navigator, render, fetch) {
+(async function (render, fetch) {
 	async function geoByIP () {
 		const res = await fetch("//api.youngcappuccino.app/api/geo", {
 			method: "GET",
@@ -16,18 +16,10 @@
 		return result;
 	}
 
-	function locale (arg = "") {
-		return arg.replace(/[^a-z]/g, "")
-	}
-
-	function language () {
-		return "languages" in navigator ? navigator.languages[0] : navigator.language;
-	}
-
 	const geo = await geoByIP(),
 		$el = document.querySelector("#city");
 
 	render(() => {
-		$el.innerText = `for ${geo.city.names[locale(language())]}`;
+		$el.innerText = `for ${geo.city.names.en}`;
 	});
-}(navigator, window.requestAnimationFrame, fetch));
+}(window.requestAnimationFrame, fetch));
