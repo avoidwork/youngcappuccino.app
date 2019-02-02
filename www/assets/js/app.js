@@ -1,8 +1,8 @@
 (async function (navigator, render) {
 	async function cityByIP () {
-		const res = await fetch('//api.youngcappuccino.app/api/geo', {
-			method: 'GET',
-			mode: 'CORS'
+		const res = await fetch("//api.youngcappuccino.app/api/geo", {
+			method: "GET",
+			mode: "cors"
 		}),
 		data = await res.json();
 		let result;
