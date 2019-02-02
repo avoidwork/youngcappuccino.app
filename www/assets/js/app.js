@@ -5,21 +5,17 @@
 			mode: "cors"
 		}),
 		data = await res.json();
-		let result;
 
-		if (res.ok) {
-			result = data.data;
-		} else {
-			result = null;
-		}
-
-		return result;
+		return data.data;
 	}
 
-	const geo = await geoByIP(),
-		$el = document.querySelector("#city");
+	const geo = await geoByIP();
 
-	render(() => {
-		$el.innerText = `for ${geo.city.names.en}`;
-	});
+	if (geo !== null) {
+		const $el = document.querySelector("#city");
+
+		render(() => {
+			$el.innerText = `for ${geo.city.names.en}`;
+		});
+	}
 }(window.requestAnimationFrame, fetch));
