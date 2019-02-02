@@ -24,19 +24,10 @@
 		return "languages" in navigator ? navigator.languages[0] : navigator.language;
 	}
 
-	if ("geolocation" in navigator) {
-		const geo = await geoByIP(),
-			$el = document.querySelector("#city");
+	const geo = await geoByIP(),
+		$el = document.querySelector("#city");
 
-		render(() => {
-			$el.innerText = `for ${geo.city.names[locale(language())]}`;
-		});
-	} else {
-		const geo = await geoByIP(),
-			$el = document.querySelector("#city");
-
-		render(() => {
-			$el.innerText = `for ${geo.city.names[locale(language())]}`;
-		});
-	}
-})(navigator, window.requestAnimationFrame, fetch);
+	render(() => {
+		$el.innerText = `for ${geo.city.names[locale(language())]}`;
+	});
+}(navigator, window.requestAnimationFrame, fetch));
