@@ -1,4 +1,4 @@
-(async function (navigator, render) {
+(async function (navigator, render, fetch) {
 	async function geoByIP () {
 		const res = await fetch("//api.youngcappuccino.app/api/geo", {
 			method: "GET",
@@ -39,4 +39,4 @@
 			$el.innerText = `for ${geo.city.names[locale(language())]}`;
 		});
 	}
-})(navigator, window.requestAnimationFrame);
+})(navigator, window.requestAnimationFrame, fetch);
