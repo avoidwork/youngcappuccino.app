@@ -26,4 +26,7 @@ h1 img {
 .store {
   margin-bottom: 3rem; }
 
+.fas.is-disabled {
+  opacity: 0.4; }
+
 /*# sourceMappingURL=style.css.map */

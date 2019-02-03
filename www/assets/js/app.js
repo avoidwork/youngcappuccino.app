@@ -3,7 +3,7 @@
 
 	function icons (icon, n, nth) {
 		const result = [];
-		let i = -1;
+		let i = -1,;
 
 		while (++i < n) {
 			result.push(`<i class="fas fa-${icon}"></i>`);
