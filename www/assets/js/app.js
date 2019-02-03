@@ -67,6 +67,7 @@
 		let result;
 
 		url.searchParams.append("format", "application/json");
+		url.searchParams.append("page_size", "10");
 		url.searchParams.append("lat", lat);
 		url.searchParams.append("long", long);
 
