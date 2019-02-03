@@ -72,7 +72,7 @@
 
 			render(() => {
 				if (results === null || (results instanceof Array && results.length === 0)) {
-					$list.innerText = "Can't find a coffee shop that's open";
+					$list.innerText = "Can't find an open cappuccino shop.";
 				} else {
 					results.length = 2;
 					$list.innerHTML = results.map(i => card(i.name, i.formatted_address, Math.ceil(i.price_level), Math.ceil(i.rating))).join("\n");
