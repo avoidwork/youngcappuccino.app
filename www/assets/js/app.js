@@ -26,8 +26,8 @@
 		return result.join("");
 	}
 
-	function card (name = "", address = "", price = 1, rating = 1) {
-		log(`type=card, name=${name}`);
+	function card (id = 0, name = "", address = "", price = 1, rating = 1) {
+		log(`type=card, id=${id}, name=${name}`);
 
 		return `
 <div class="store">
@@ -107,7 +107,7 @@
 				if (valid === false) {
 					$list.innerText = "Can't find an open cappuccino shop.";
 				} else {
-					$list.innerHTML = results.map(i => card(i.name, i.vicinity, Math.ceil(i.price_level), Math.ceil(i.rating))).join("\n");
+					$list.innerHTML = results.map(i => card(i.id, i.name, i.vicinity, Math.ceil(i.price_level), Math.ceil(i.rating))).join("\n");
 				}
 
 				$list.classList.remove("is-hidden");
