@@ -1,12 +1,12 @@
 (async function (render, fetch) {
 	const api = "https://api.youngcappuccino.app/api";
 
-	function card (title = '', address = '') {
+	function card (name = '', address = '') {
 		return `
 <div class="card">
   <div class="card-content">
     <div class="content">
-      <h1>${title}</h1>
+      <h1>${name}</h1>
       <p>${address}</p>
     </div>
   </div>
@@ -52,7 +52,7 @@
 		const results = await search(geo.location.latitude, geo.location.longitude);
 
 		render(() => {
-			$list.innerHTML = results === null ? "<li>Can't find a coffee shop that's open</li>" : results.map(i => `<li>${card(i.title, i.formatted_address)}</li>`).join("\n");
+			$list.innerHTML = results === null ? "<li>Can't find a coffee shop that's open</li>" : results.map(i => `<li>${card(i.name, i.formatted_address)}</li>`).join("\n");
 		});
 	}
 }(window.requestAnimationFrame, fetch));
