@@ -2,7 +2,7 @@
 	const api = "https://api.youngcappuccino.app/api";
 
 	function log (arg, target = "log") {
-		console[target](arg instanceof Object ? arg : `[app] ${arg}, timestamp=${new Date().toISOString()}`);
+		console[target](arg instanceof Object ? arg : `[yc] ${arg}, timestamp=${new Date().toISOString()}`);
 	}
 
 	function error (arg) {
