@@ -13,6 +13,8 @@
 		while (++i < nth) {
 			result.push(`<i class="fas fa-${icon} is-disabled"></i>`);
 		}
+
+		return result.join("");
 	}
 
 	function card (name = '', address = '', price = 1, rating = 1) {
