@@ -6,7 +6,7 @@
 <div class="card">
   <div class="card-content">
     <div class="content">
-      <h1>${name}</h1>
+      <h3 class="is-size-4">${name}</h3>
       <p>${address}</p>
     </div>
   </div>
