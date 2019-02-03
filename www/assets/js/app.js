@@ -46,14 +46,14 @@
 			$list = document.querySelector("#list");
 
 		render(() => {
-			$city.innerText = `for ${geo.city.names.en}`;
+			$city.innerText = geo.city.names.en;
 			$city.parentElement.classList.remove("is-hidden");
 		});
 
 		const results = await search(geo.location.latitude, geo.location.longitude);
 
 		render(() => {
-			$list.innerHTML = results === null ? "<li>Can't find a coffee shop that's open</li>" : results.map(i => `<li>${card(i.name, i.formatted_address)}</li>`).join("\n");
+			$list.innerHTML = results === null ? "<p>Can't find a coffee shop that's open</p>" : results.map(i => card(i.name, i.formatted_address)).join("\n");
 			$list.classList.remove("is-hidden");
 		});
 	}
