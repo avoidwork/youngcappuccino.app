@@ -21,8 +21,8 @@
 	function card (name = "", address = "", price = 1, rating = 1) {
 		return `
 <div class="store">
-	<div class="title is-size-5">${name}</div>
-	<div class="subtitle is-size-6">${address}</div>
+	<div class="title is-size-3">${name}</div>
+	<div class="subtitle is-size-5">${address}</div>
 	<div>${icons("dollar-sign", price, 5)}</div>
 	<div>${icons("star", rating, 5)}</div>
 </div>
