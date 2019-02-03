@@ -16,9 +16,11 @@ h1 img {
   width: 60%; }
 
 .title {
-  color: #6B3308; }
+  color: #6B3308;
+  margin: 0; }
 
 .subtitle {
-  color: #361D09; }
+  color: #361D09;
+  margin: 0; }
 
 /*# sourceMappingURL=style.css.map */
