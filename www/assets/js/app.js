@@ -11,9 +11,16 @@
 	}
 
 	async function geoByIP () {
-		const res = await fetch(`${api}/geo`, {
+		const url = new URL(`${api}/geo`);
+
+		url.searchParams.append("format", "application/json");
+
+		const res = await fetch(url.href, {
 			method: "GET",
-			mode: "cors"
+			mode: "cors",
+			headers: {
+				accept: "application/json"
+			}
 		}),
 		data = await res.json();
 
@@ -23,12 +30,16 @@
 	async function search (lat, long) {
 		const url = new URL(`${api}/search`);
 
+		url.searchParams.append("format", "application/json");
 		url.searchParams.append("lat", lat);
 		url.searchParams.append("long", long);
 
 		const res = await fetch(url.href, {
 				method: "GET",
-				mode: "cors"
+				mode: "cors",
+				headers: {
+					accept: "application/json"
+				}
 			}),
 			data = await res.json();
 
