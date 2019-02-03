@@ -3,16 +3,10 @@
 
 	function card (name = '', address = '') {
 		return `
-<div class="column">
-	<div class="card">
-		<div class="card-content">
-			<div class="content">
-				<h3 class="is-size-4">${name}</h3>
-				<p>${address}</p>
-			</div>
-		</div>
-	</div>
-</div>
+<p>
+	<h3 class="is-size-4">${name}</h3>
+	${address}
+</p>
 `;
 	}
 
