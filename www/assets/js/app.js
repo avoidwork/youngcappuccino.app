@@ -114,7 +114,7 @@
 				}
 
 				$list.classList.remove("is-hidden");
-				log(`type=display, total=${results.length}, message="${valid ? "Showing results" : "No results"}`);
+				log(`type=display, total=${results.length}, message="${valid ? "Showing results" : "No results"}"`);
 			});
 		}
 	}
