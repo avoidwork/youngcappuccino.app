@@ -1,13 +1,28 @@
 (async function (document, render, fetch, navigator) {
 	const api = "https://api.youngcappuccino.app/api";
 
+	function icons (icon, n, nth) {
+		const result = [];
+		let i = -1;
+
+		while (++i < n) {
+			result.push(`<i class="fas fa-${icon}"></i>`);
+		}
+
+		i = n;
+		while (++i < nth) {
+			result.push(`<i class="fas fa-${icon} is-disabled"></i>`);
+		}
+	}
+
 	function card (name = '', address = '', price = 1, rating = 1) {
 		return `
-<p>
+<div class="store">
 	<div class="title is-size-5">${name}</div>
 	<div class="subtitle is-size-6">${address}</div>
-	<div>Price: ${price}/5, Rating: ${rating}/5</div>
-</p>
+	<div>${icons("dollar-sign", price, 5)}</div>
+	<div>${icons("star", rating, 5)}</div>
+</div>
 `;
 	}
 
