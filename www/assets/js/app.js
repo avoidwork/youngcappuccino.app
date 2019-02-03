@@ -75,7 +75,7 @@
 					$list.innerText = "Can't find a coffee shop that's open";
 				} else {
 					results.length = 2;
-					$list.innerHTML = results.map(i => card(i.name, i.formatted_address, Math.ceil(price_level), Math.ceil(rating))).join("\n");
+					$list.innerHTML = results.map(i => card(i.name, i.formatted_address, Math.ceil(i.price_level), Math.ceil(i.rating))).join("\n");
 				}
 
 				$list.classList.remove("is-hidden");
