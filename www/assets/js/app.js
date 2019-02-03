@@ -99,7 +99,7 @@
 				if (valid === false) {
 					$list.innerText = "Can't find an open cappuccino shop.";
 				} else {
-					results.length = 2;
+					results.length = 6;
 					$list.innerHTML = results.map(i => card(i.name, i.vicinity, Math.ceil(i.price_level), Math.ceil(i.rating))).join("\n");
 				}
 
