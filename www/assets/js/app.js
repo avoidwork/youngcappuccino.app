@@ -1,6 +1,21 @@
 (async function (render, fetch) {
+	const api = "//api.youngcappuccino.app/api";
+
+	function card (title = '', address = '') {
+		return `
+<div class="card">
+  <div class="card-content">
+    <div class="content">
+      <h1>${title}</h1>
+      <p>${address}</p>
+    </div>
+  </div>
+</div>
+`;
+	}
+
 	async function geoByIP () {
-		const res = await fetch("//api.youngcappuccino.app/api/geo", {
+		const res = await fetch(`${api}/geo`, {
 			method: "GET",
 			mode: "cors"
 		}),
@@ -10,7 +25,7 @@
 	}
 
 	async function search (lat, long) {
-		const url = new URL("https://api.youngcappuccino.app/api/search");
+		const url = new URL(`${api}/search`);
 
 		url.searchParams.append("lat", lat);
 		url.searchParams.append("long", long);
@@ -27,14 +42,17 @@
 	const geo = await geoByIP();
 
 	if (geo !== null) {
-		const $el = document.querySelector("#city");
+		const $city = document.querySelector("#city"),
+			$list = document.querySelector("#list");
 
 		render(() => {
-			$el.innerText = `for ${geo.city.names.en}`;
+			$city.innerText = `for ${geo.city.names.en}`;
 		});
 
 		const results = await search(geo.location.latitude, geo.location.longitude);
 
-		console.log(results);
+		render(() => {
+			$list.innerHTML = results === null ? "<li>Can't find a coffee shop that's open</li>" : results.map(i => `<li>${card(i.title, i.formatted_address)}</li>`).join("\n");
+		});
 	}
 }(window.requestAnimationFrame, fetch));
