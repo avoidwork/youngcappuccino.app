@@ -4,8 +4,8 @@
 	function card (name = '', address = '') {
 		return `
 <p>
-	<h3 class="is-size-4">${name}</h3>
-	${address}
+	<h3 class="title is-size-5">${name}</h3>
+	<h4 class="subtitle is-size-6">${address}</h4>
 </p>
 `;
 	}
