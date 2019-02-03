@@ -27,7 +27,7 @@
 	}
 
 	function card (id = 0, name = "", address = "", price = 1, rating = 1) {
-		log(`type=card, id=${id}, name=${name}`);
+		log(`type=card, id=${id}, name="${name}"`);
 
 		return `
 <div class="store">
@@ -60,7 +60,7 @@
 			log("type=geoByIP, message=\"Retrieved co-ordinates by IP\"");
 		} catch (err) {
 			result = null;
-			log(`type=error, source=geoByIP, error="${error(err)}"`, "warn");
+			log(`type=error, source=geoByIP, error="${error(err)}"`);
 		}
 
 		return result;
@@ -75,7 +75,7 @@
 		url.searchParams.append("lat", lat);
 		url.searchParams.append("long", long);
 
-		log(`type=search, latitude=${lat}, longitude=${long}`);
+		log(`type=search, latitude=${lat}, longitude=${long}, action=query`);
 
 		try {
 			const res = await fetch(url.href, {
@@ -91,7 +91,7 @@
 			log(`type=search, latitude=${lat}, longitude=${long}, success=true, total=${result.length}`);
 		} catch (err) {
 			result = [];
-			log(`type=error, source=search, error="${error(err)}"`, "warn");
+			log(`type=error, source=search, success=false, message="${error(err)}"`);
 		}
 
 		return result;
@@ -105,7 +105,10 @@
 
 			render(() => {
 				if (valid === false) {
-					$list.innerText = "Can't find an open cappuccino shop.";
+					const msg = "Can't find an open cappuccino shop.";
+
+					$list.innerText = msg;
+					log(`type=error, source=display, success=false, message="${msg}"`);
 				} else {
 					$list.innerHTML = results.map(i => card(i.id, i.name, i.vicinity, Math.ceil(i.price_level), Math.ceil(i.rating))).join("\n");
 				}
