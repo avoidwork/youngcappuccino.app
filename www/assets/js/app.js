@@ -67,7 +67,7 @@
 		let result;
 
 		url.searchParams.append("format", "application/json");
-		url.searchParams.append("page_size", "10");
+		url.searchParams.append("page_size", "6");
 		url.searchParams.append("lat", lat);
 		url.searchParams.append("long", long);
 
@@ -100,7 +100,6 @@
 				if (valid === false) {
 					$list.innerText = "Can't find an open cappuccino shop.";
 				} else {
-					results.length = 6;
 					$list.innerHTML = results.map(i => card(i.name, i.vicinity, Math.ceil(i.price_level), Math.ceil(i.rating))).join("\n");
 				}
 
