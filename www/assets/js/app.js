@@ -1,16 +1,17 @@
 (async function (document, render, fetch, navigator) {
 	const api = "https://api.youngcappuccino.app/api";
 
-	function icons (icon, n, nth) {
+	function icons (icon, n = 1, nth = 5) {
 		const result = [];
-		let i = -1,;
+		let i = -1,
+			max = nth + 1;
 
 		while (++i < n) {
 			result.push(`<i class="fas fa-${icon}"></i>`);
 		}
 
 		i = n;
-		while (++i < nth) {
+		while (++i < max) {
 			result.push(`<i class="fas fa-${icon} is-disabled"></i>`);
 		}
 
