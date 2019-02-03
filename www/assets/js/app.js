@@ -48,17 +48,8 @@
 
 	async function display (arg) {
 		if (arg !== null) {
-			const $city = document.querySelector("#city"),
-				$list = document.querySelector("#list");
-
-			if (arg.city !== void 0) {
-				render(() => {
-					$city.innerText = arg.city.names.en;
-					$city.parentElement.classList.remove("is-hidden");
-				});
-			}
-
-			const results = await search(arg.location.latitude, arg.location.longitude);
+			const $list = document.querySelector("#list"),
+				results = await search(arg.location.latitude, arg.location.longitude);
 
 			render(() => {
 				if (results === null) {
@@ -76,7 +67,10 @@
 	if ("geolocation" in navigator) {
 		navigator.geolocation.getCurrentPosition(position => {
 			display({
-				location: position.coords
+				location: {
+					latitude: Number(position.coords.latitude).toFixed(2),
+					longitude: Number(position.coords.longitude).toFixed(2)
+				}
 			});
 		}, async () => display(await geoByIP()));
 	} else {
