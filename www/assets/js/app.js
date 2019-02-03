@@ -110,7 +110,7 @@
 					$list.innerText = msg;
 					log(`type=error, source=display, success=false, message="${msg}"`);
 				} else {
-					$list.innerHTML = results.map(i => card(i.id, i.name, i.vicinity, Math.ceil(i.price_level), Math.ceil(i.rating))).join("\n");
+					$list.innerHTML = results.map(i => card(i.id, i.name, i.address, Math.ceil(i.price), Math.ceil(i.rating))).join("\n");
 				}
 
 				$list.classList.remove("is-hidden");
