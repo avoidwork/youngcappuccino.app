@@ -65,14 +65,7 @@
 	}
 
 	if ("geolocation" in navigator) {
-		navigator.geolocation.getCurrentPosition(position => {
-			display({
-				location: {
-					latitude: Number(position.coords.latitude).toFixed(2),
-					longitude: Number(position.coords.longitude).toFixed(2)
-				}
-			});
-		}, async () => display(await geoByIP()));
+		navigator.geolocation.getCurrentPosition(position => display({location: position.coords}), async () => display(await geoByIP()));
 	} else {
 		display(await geoByIP());
 	}
