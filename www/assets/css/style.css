@@ -12,11 +12,10 @@ a {
   a:hover {
     color: #B96220; }
 
-.hero .title {
-  color: #6B3308; }
-  .hero .title img {
-    width: 60%; }
-.hero .subtitle {
+h1 img {
+  width: 60%; }
+
+.subtitle {
   color: #361D09; }
 
 /*# sourceMappingURL=style.css.map */

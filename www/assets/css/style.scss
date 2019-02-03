@@ -24,16 +24,12 @@ a {
   }
 }
 
-.hero {
-  .title {
-    color: $title;
-
-    img {
-      width: 60%;
-    }
+h1 {
+  img {
+    width: 60%;
   }
+}
 
-  .subtitle {
-    color: $subtitle;
-  }
+.subtitle {
+  color: $subtitle;
 }
