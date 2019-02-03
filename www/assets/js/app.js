@@ -1,5 +1,5 @@
 (async function (render, fetch) {
-	const api = "//api.youngcappuccino.app/api";
+	const api = "https://api.youngcappuccino.app/api";
 
 	function card (title = '', address = '') {
 		return `
