@@ -53,7 +53,13 @@
 		const results = await search(geo.location.latitude, geo.location.longitude);
 
 		render(() => {
-			$list.innerHTML = results === null ? "<p>Can't find a coffee shop that's open</p>" : results.map(i => card(i.name, i.formatted_address)).join("\n");
+			if (results === null) {
+				$list.innerText = "Can't find a coffee shop that's open";
+			} else {
+				results.length = 2;
+				$list.innerHTML = results.map(i => card(i.name, i.formatted_address)).join("\n");
+			}
+
 			$list.classList.remove("is-hidden");
 		});
 	}
