@@ -109,7 +109,7 @@
 	}
 
 	if ("geolocation" in navigator) {
-		navigator.geolocation.getCurrentPosition(position => display({location: position.coords}), async () => display(await geoByIP()));
+		navigator.geolocation.getCurrentPosition(position => display({location: position.coords}), async () => display(await geoByIP()), {enableHighAccuracy: true});
 	} else {
 		display(await geoByIP());
 	}
