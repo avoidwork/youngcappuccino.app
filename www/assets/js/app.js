@@ -6,7 +6,7 @@
 <p>
 	<h3 class="title is-size-5">${name}</h3>
 	<h4 class="subtitle is-size-6">${address}</h4>
-	<h5 class="is-size-6">Price: ${price} / 5, Rating: ${rating} / 5</h5>
+	<div>Price: ${price}/5, Rating: ${rating}/5</div>
 </p>
 `;
 	}
