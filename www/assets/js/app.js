@@ -17,7 +17,7 @@
 		return result.join("");
 	}
 
-	function card (name = '', address = '', price = 1, rating = 1) {
+	function card (name = "", address = "", price = 1, rating = 1) {
 		return `
 <div class="store">
 	<div class="title is-size-5">${name}</div>
