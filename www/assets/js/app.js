@@ -71,7 +71,7 @@
 				results = await search(arg.location.latitude, arg.location.longitude);
 
 			render(() => {
-				if (results === null) {
+				if (results === null || (results instanceof Array && results.length === 0)) {
 					$list.innerText = "Can't find a coffee shop that's open";
 				} else {
 					results.length = 2;
