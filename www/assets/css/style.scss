@@ -32,11 +32,11 @@ h1 {
 
 .title {
   color: $title;
-  margin: 0;
+  margin: 0 !important;
 }
 
 .subtitle {
   color: $subtitle;
+  margin: 0 !important;
   font-weight: bold;
-  margin: 0;
 }
