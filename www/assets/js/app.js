@@ -1,4 +1,4 @@
-(async function (render, fetch) {
+(async function (document, render, fetch, navigator) {
 	const api = "https://api.youngcappuccino.app/api";
 
 	function card (name = '', address = '') {
@@ -46,28 +46,40 @@
 		return data.data;
 	}
 
-	const geo = await geoByIP();
+	async function display (arg) {
+		if (arg !== null) {
+			const $city = document.querySelector("#city"),
+				$list = document.querySelector("#list");
 
-	if (geo !== null) {
-		const $city = document.querySelector("#city"),
-			$list = document.querySelector("#list");
-
-		render(() => {
-			$city.innerText = geo.city.names.en;
-			$city.parentElement.classList.remove("is-hidden");
-		});
-
-		const results = await search(geo.location.latitude, geo.location.longitude);
-
-		render(() => {
-			if (results === null) {
-				$list.innerText = "Can't find a coffee shop that's open";
-			} else {
-				results.length = 2;
-				$list.innerHTML = results.map(i => card(i.name, i.formatted_address)).join("\n");
+			if (arg.city !== void 0) {
+				render(() => {
+					$city.innerText = arg.city.names.en;
+					$city.parentElement.classList.remove("is-hidden");
+				});
 			}
 
-			$list.classList.remove("is-hidden");
-		});
+			const results = await search(arg.location.latitude, arg.location.longitude);
+
+			render(() => {
+				if (results === null) {
+					$list.innerText = "Can't find a coffee shop that's open";
+				} else {
+					results.length = 2;
+					$list.innerHTML = results.map(i => card(i.name, i.formatted_address)).join("\n");
+				}
+
+				$list.classList.remove("is-hidden");
+			});
+		}
 	}
-}(window.requestAnimationFrame, fetch));
+
+	if ("geolocation" in navigator) {
+		navigator.geolocation.getCurrentPosition(position => {
+			display({
+				location: position.coords
+			});
+		}, async () => display(await geoByIP()));
+	} else {
+		display(await geoByIP());
+	}
+}(document, window.requestAnimationFrame, fetch, navigator));
