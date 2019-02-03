@@ -27,6 +27,8 @@
 	}
 
 	function card (name = "", address = "", price = 1, rating = 1) {
+		log(`type=card, name=${name}`);
+
 		return `
 <div class="store">
 	<div class="title is-size-3">${name}</div>
@@ -42,6 +44,7 @@
 		let result;
 
 		url.searchParams.append("format", "application/json");
+		log("type=geoByIP, message=\"Trying to determine location by IP\"");
 
 		try {
 			const res = await fetch(url.href, {
@@ -54,6 +57,7 @@
 				data = await res.json();
 
 			result = data.data;
+			log("type=geoByIP, message=\"Retrieved co-ordinates by IP\"");
 		} catch (err) {
 			result = null;
 			log(`type=error, source=geoByIP, error="${error(err)}"`, "warn");
@@ -71,6 +75,8 @@
 		url.searchParams.append("lat", lat);
 		url.searchParams.append("long", long);
 
+		log(`type=search, latitude=${lat}, longitude=${long}`);
+
 		try {
 			const res = await fetch(url.href, {
 					method: "GET",
@@ -82,6 +88,7 @@
 				data = await res.json();
 
 			result = data.data;
+			log(`type=search, latitude=${lat}, longitude=${long}, success=true, total=${result.length}`);
 		} catch (err) {
 			result = [];
 			log(`type=error, source=search, error="${error(err)}"`, "warn");
@@ -104,13 +111,16 @@
 				}
 
 				$list.classList.remove("is-hidden");
+				log(`type=display, total=${results.length}, message="${valid ? "Showing results" : "No results"}`);
 			});
 		}
 	}
 
 	if ("geolocation" in navigator) {
+		log("type=geolocation, message=\"Supported in browser\"");
 		navigator.geolocation.getCurrentPosition(position => display({location: position.coords}), async () => display(await geoByIP()), {enableHighAccuracy: true});
 	} else {
+		log("error=unsupported, origin=geolocation, message=\"Unsupported in browser\"");
 		display(await geoByIP());
 	}
 }(document, window.requestAnimationFrame, fetch, navigator));
