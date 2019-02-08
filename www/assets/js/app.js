@@ -132,6 +132,8 @@ Y88b   d88P                                        .d8888b.                     
 		}
 	}
 
+	log(logo, "log", true);
+
 	if ("geolocation" in navigator) {
 		log("type=geolocation, message=\"Supported in browser\"");
 		navigator.geolocation.getCurrentPosition(position => display({location: position.coords}), async () => display(await geoByIP()), {enableHighAccuracy: true});
@@ -139,6 +141,4 @@ Y88b   d88P                                        .d8888b.                     
 		log("error=unsupported, origin=geolocation, message=\"Unsupported in browser\"");
 		display(await geoByIP());
 	}
-
-	log(logo, "log", true);
 }(document, window.requestAnimationFrame, fetch, navigator));
