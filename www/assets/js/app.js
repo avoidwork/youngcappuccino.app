@@ -12,6 +12,7 @@
                                                         888                          888      888
                                                    Y8b d88P                          888      888
                                                     "Y88P"                           888      888
+
 `;
 
 	function log (arg, target = "log", passthrough = false) {
