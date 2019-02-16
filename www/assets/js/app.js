@@ -119,7 +119,7 @@
 
 			render(() => {
 				if (valid === false) {
-					const msg = "Can't find an open cappuccino shop.";
+					const msg = "Couldn't find an open cafe.";
 
 					$list.innerText = msg;
 					log(`type=error, source=display, success=false, message="${msg}"`);
