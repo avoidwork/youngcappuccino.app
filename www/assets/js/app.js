@@ -47,8 +47,8 @@
 <div class="column is-one-third">
 	<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}" target="_blank" title="${name}">
 		<div class="store">
-			<div class="title is-size-3">${name}</div>
-			<div class="subtitle is-size-5">${address}</div>
+			<div class="title is-size-3 is-size-4-mobile">${name}</div>
+			<div class="subtitle is-size-5 is-size-6-mobile">${address}</div>
 			<div>${icons("star", rating, 5)}</div>
 			<div>${icons("dollar-sign", price, 5)}</div>
 		</div>
