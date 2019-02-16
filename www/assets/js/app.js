@@ -117,16 +117,15 @@
 		if (arg !== null) {
 			const $list = document.querySelector("#list"),
 				results = await search(arg.location.latitude, arg.location.longitude),
-				valid = results instanceof Array && results.length > 0;
+				valid = results instanceof Array && results.length > 0,
+				cafes = valid ? results.map(i => card(i.id, i.name, i.address, Math.ceil(i.price), Math.ceil(i.rating))).join("\n") : "";
 
 			render(() => {
 				if (valid === false) {
-					const msg = "Couldn't find a cafe.";
-
-					$list.innerText = msg;
-					log(`type=error, source=display, success=false, message="${msg}"`);
+					$list.innerText = "Couldn't find a cafe.";
+					log(`type=error, source=display, success=false, message="Couldn't find a cafe."`);
 				} else {
-					$list.innerHTML = results.map(i => card(i.id, i.name, i.address, Math.ceil(i.price), Math.ceil(i.rating))).join("\n");
+					$list.innerHTML = cafes;
 				}
 
 				$list.classList.remove("is-hidden");
