@@ -1,6 +1,6 @@
 const name = "young-cappuccino-cache-v1",
 	urls = [
-		"/index.html",
+		"/",
 		"/assets/css/bulma.css",
 		"/assets/css/style.css",
 		"/assets/css/style.css.map",
