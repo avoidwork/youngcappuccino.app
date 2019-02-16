@@ -11,3 +11,4 @@ const name = "young-cappuccino-cache-v1",
 	];
 
 self.addEventListener("install", ev => ev.waitUntil(caches.open(name).then(cache => cache.addAll(urls))));
+self.addEventListener("fetch", ev => ev.respondWith(caches.match(ev.request).then(res => res ? res : fetch(ev.request))));
