@@ -113,12 +113,27 @@
 		return result;
 	}
 
+	function chunk (arg = [], size = 3) {
+		const result = [],
+			nth = Math.ceil(arg.length / size);
+		let i = -1;
+
+		while (++i < nth) {
+			const start = i * size,
+				end = start + size;
+
+			result.push(arg.slice(start, end));
+		}
+
+		return result;
+	}
+
 	async function display (arg) {
 		if (arg !== null) {
 			const $list = document.querySelector("#list"),
 				results = await search(arg.location.latitude, arg.location.longitude),
 				valid = results instanceof Array && results.length > 0,
-				cafes = valid ? results.map(i => card(i.id, i.name, i.address, Math.ceil(i.price), Math.ceil(i.rating))).join("\n") : "";
+				cafes = valid ? chunk(results, 3).map(r => `<div class="column">${r.map(i => card(i.id, i.name, i.address, Math.ceil(i.price), Math.ceil(i.rating))).join("\n")}</div>`).join("\n") : "";
 
 			render(() => {
 				if (valid === false) {
