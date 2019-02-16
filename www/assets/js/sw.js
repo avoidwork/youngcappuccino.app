@@ -4,7 +4,7 @@ const name = "young-cappuccino-cache-v1",
 		"/assets/css/bulma.css",
 		"/assets/css/style.css",
 		"/assets/css/style.css.map",
-		"/assets/css/style.css.scss",
+		"/assets/css/style.scss",
 		"assets/css/font-awesome/css/all.css",
 		"/assets/js/app.js",
 		"/assets/img/logo.svg"
