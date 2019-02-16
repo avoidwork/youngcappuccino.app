@@ -5,7 +5,7 @@ const name = "young-cappuccino-cache-v1",
 		"/assets/css/style.css",
 		"/assets/css/style.css.map",
 		"/assets/css/style.scss",
-		"assets/css/font-awesome/css/all.css",
+		"/assets/css/font-awesome/css/all.css",
 		"/assets/js/app.js",
 		"/assets/img/logo.svg"
 	];
