@@ -135,6 +135,18 @@
 
 	log(logo, "log", true);
 
+	if ("serviceWorker" in navigator) {
+		window.addEventListener("load", async () => {
+			try {
+				const registration = await navigator.serviceWorker.register("/assets/js/sw.js");
+
+				log(`type=serviceWorker, message="ServiceWorker registration successful with scope: ${registration.scope}"`);
+			} catch (err) {
+				log(`type=error, source=serviceWorker, message="ServiceWorker registration failed: ${err.message}"`);
+			}
+		});
+	}
+
 	if ("geolocation" in navigator) {
 		log("type=geolocation, message=\"Supported in browser\"");
 		navigator.geolocation.getCurrentPosition(position => display({location: position.coords}), async () => display(await geoByIP()), {enableHighAccuracy: true});

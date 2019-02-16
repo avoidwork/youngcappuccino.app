@@ -1,0 +1,13 @@
+const name = "young-cappuccino-cache-v1",
+	urls = [
+		"/",
+		"/assets/css/bulma.css",
+		"/assets/css/style.css",
+		"/assets/css/style.css.map",
+		"/assets/css/style.css.scss",
+		"assets/css/font-awesome/css/all.css",
+		"/assets/js/app.js",
+		"/assets/img/logo.svg"
+	];
+
+self.addEventListener("install", ev => ev.waitUntil(caches.open(name).then(cache => cache.addAll(urls))));
