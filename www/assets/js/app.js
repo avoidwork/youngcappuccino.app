@@ -44,7 +44,7 @@
 		log(`type=card, id=${id}, name="${name}"`);
 
 		return `
-<div class="column">
+<div class="column is-one-third">
 	<div class="store">
 		<div class="title is-size-3">${name}</div>
 		<div class="subtitle is-size-5">${address}</div>
