@@ -133,6 +133,7 @@
 	async function display (arg) {
 		if (arg !== null) {
 			const $list = document.querySelector("#list"),
+				$loading = document.querySelector("#loading"),
 				results = await search(arg.location.latitude, arg.location.longitude),
 				valid = results instanceof Array && results.length > 0,
 				cafes = valid ? chunk(results, 3).map(r => `<div class="columns">${r.map(i => card(i.id, i.name, i.address, Math.ceil(i.price), Math.ceil(i.rating))).join("\n")}</div>`).join("\n") : "";
@@ -145,6 +146,7 @@
 					$list.innerHTML = cafes;
 				}
 
+				$loading.classList.add("is-hidden");
 				$list.classList.remove("is-hidden");
 				log(`type=display, total=${results.length}, message="${valid ? "Showing results" : "No results"}"`);
 			});
