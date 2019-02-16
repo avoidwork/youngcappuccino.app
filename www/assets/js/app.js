@@ -44,11 +44,13 @@
 		log(`type=card, id=${id}, name="${name}"`);
 
 		return `
-<div class="store">
-	<div class="title is-size-3">${name}</div>
-	<div class="subtitle is-size-5">${address}</div>
-	<div>${icons("star", rating, 5)}</div>
-	<div>${icons("dollar-sign", price, 5)}</div>
+<div class="column">
+	<div class="store">
+		<div class="title is-size-3">${name}</div>
+		<div class="subtitle is-size-5">${address}</div>
+		<div>${icons("star", rating, 5)}</div>
+		<div>${icons("dollar-sign", price, 5)}</div>
+	</div>
 </div>
 `;
 	}
