@@ -8,7 +8,8 @@ const name = "young-cappuccino-cache-v1",
 		"/assets/css/font-awesome/css/all.css",
 		"/assets/css/font-awesome/webfonts/fa-solid-900.woff2",
 		"/assets/js/app.js",
-		"/assets/img/logo.svg"
+		"/assets/img/logo.svg",
+		"/assets/img/fav_icon.png"
 	];
 
 self.addEventListener("install", ev => ev.waitUntil(caches.open(name).then(cache => cache.addAll(urls))));
