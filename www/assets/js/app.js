@@ -133,7 +133,7 @@
 			const $list = document.querySelector("#list"),
 				results = await search(arg.location.latitude, arg.location.longitude),
 				valid = results instanceof Array && results.length > 0,
-				cafes = valid ? chunk(results, 3).map(r => `<div class="column">${r.map(i => card(i.id, i.name, i.address, Math.ceil(i.price), Math.ceil(i.rating))).join("\n")}</div>`).join("\n") : "";
+				cafes = valid ? chunk(results, 3).map(r => `<div class="columns">${r.map(i => card(i.id, i.name, i.address, Math.ceil(i.price), Math.ceil(i.rating))).join("\n")}</div>`).join("\n") : "";
 
 			render(() => {
 				if (valid === false) {
