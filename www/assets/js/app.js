@@ -107,10 +107,10 @@
 				}),
 				data = await res.json();
 
-			result = data.data;
+			result = [data.data, res.status];
 			log(`type=search, latitude=${lat}, longitude=${long}, success=true, total=${result.length}`);
 		} catch (err) {
-			result = [];
+			result = [[], 500];
 			log(`type=error, source=search, success=false, message="${error(err)}"`);
 		}
 
@@ -137,12 +137,12 @@
 			const $list = document.querySelector("#list"),
 				$loading = document.querySelector("#loading"),
 				results = await search(arg.location.latitude, arg.location.longitude),
-				valid = results instanceof Array && results.length > 0,
-				cafes = valid ? chunk(results, 3).map(r => `<div class="columns">${r.map(i => card(i.id, i.name, i.address, Math.ceil(i.price), Math.ceil(i.rating))).join("\n")}</div>`).join("\n") : "";
+				valid = results[0].length > 0,
+				cafes = valid ? chunk(results[0], 3).map(r => `<div class="columns">${r.map(i => card(i.id, i.name, i.address, Math.ceil(i.price), Math.ceil(i.rating))).join("\n")}</div>`).join("\n") : "";
 
 			render(() => {
 				if (valid === false) {
-					$list.innerText = "Couldn't find a cafe.";
+					$list.innerText = results[1] === 429 ? "Please wait, too many requests." : "Couldn't find a cafe.";
 					log(`type=error, source=display, success=false, message="Couldn't find a cafe."`);
 				} else {
 					$list.innerHTML = cafes;
