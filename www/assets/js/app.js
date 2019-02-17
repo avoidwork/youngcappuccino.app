@@ -66,6 +66,7 @@
 
 		try {
 			const res = await fetch(url.href, {
+					credentials: "include",
 					method: "GET",
 					mode: "cors",
 					headers: {
@@ -97,6 +98,7 @@
 
 		try {
 			const res = await fetch(url.href, {
+					credentials: "include",
 					method: "GET",
 					mode: "cors",
 					headers: {
