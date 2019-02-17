@@ -107,7 +107,7 @@
 				}),
 				data = await res.json();
 
-			result = [data.data, res.status];
+			result = [data.data || [], res.status];
 			log(`type=search, latitude=${lat}, longitude=${long}, success=true, total=${result.length}`);
 		} catch (err) {
 			result = [[], 500];
