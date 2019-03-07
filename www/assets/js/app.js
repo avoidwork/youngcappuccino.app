@@ -143,14 +143,14 @@
 			render(() => {
 				if (valid === false) {
 					$list.innerText = results[1] === 429 ? "Please wait, too many requests." : "Couldn't find a cafe.";
-					log(`type=error, source=display, success=false, message="Couldn't find a cafe."`);
+					log("type=error, source=display, success=false, message=\"Couldn't find a cafe.\"");
 				} else {
 					$list.innerHTML = cafes;
 				}
 
 				$loading.classList.add("is-hidden");
 				$list.classList.remove("is-hidden");
-				log(`type=display, total=${results.length}, message="${valid ? "Showing results" : "No results"}"`);
+				log(`type=display, total=${valid ? results[0].length + results[1].length : 0}, message="${valid ? "Showing results" : "No results"}"`);
 			});
 		}
 	}
