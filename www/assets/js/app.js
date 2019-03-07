@@ -150,7 +150,7 @@
 
 				$loading.classList.add("is-hidden");
 				$list.classList.remove("is-hidden");
-				log(`type=display, total=${valid ? results[0].length + results[1].length : 0}, message="${valid ? "Showing results" : "No results"}"`);
+				log(`type=display, total=${valid ? results[0].length : 0}, message="${valid ? "Showing results" : "No results"}"`);
 			});
 		}
 	}
