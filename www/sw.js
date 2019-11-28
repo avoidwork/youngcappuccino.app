@@ -23,9 +23,10 @@ self.addEventListener('install', ev => {
 });
 
 self.addEventListener('fetch', ev => ev.respondWith(new Promise(async (resolve) => {
+	const method = ev.request.method;
 	let result;
 
-	if (ev.request.method === 'GET') {
+	if (method === 'GET') {
 		const cache = await caches.open(name),
 			cached = await cache.match(ev.request),
 			now = new Date().getTime();
@@ -41,6 +42,14 @@ self.addEventListener('fetch', ev => ev.respondWith(new Promise(async (resolve) 
 				return res;
 			});
 		}
+	} else {
+		result = fetch(ev.request).then(res => {
+			if (res.type === 'basic' && res.status >= 200 && res.status < 400 && method !== 'HEAD' && method !== 'OPTIONS') {
+				cache.delete(ev.request);
+			}
+
+			return res;
+		});
 	}
 
 	resolve(result);
