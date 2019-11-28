@@ -1,4 +1,4 @@
-const name = "young-cappuccino-cache-v2",
+const name = "young-cappuccino-cache-v4",
 	timeout = 18e2, // 30 min
 	urls = [
 		"/",
@@ -14,11 +14,7 @@ const name = "young-cappuccino-cache-v2",
 	],
 	cacheable = (arg = '') => (arg.includes('no-cache') || arg.includes('no-store') || arg.includes('max-age=0')) === false;
 
-self.addEventListener('activate', ev => ev.waitUntil(caches.keys().then(args => {
-	const x = args.filter(i => i !== name);
-
-	return x.length === 0 ? Promise.resolve() : Promise.all(x.map(i => caches.delete(i)));
-})));
+self.addEventListener('activate', ev => ev.waitUntil(caches.keys().then(args => Promise.all(args.filter(i => i !== name).map(i => caches.delete(i)))).catch(() => void 0)));
 
 self.addEventListener('install', ev => {
 	self.skipWaiting();
@@ -26,34 +22,33 @@ self.addEventListener('install', ev => {
 	return ev.waitUntil(caches.open(name).then(cache => cache.addAll(urls)).catch(() => void 0));
 });
 
-self.addEventListener('fetch', ev => ev.respondWith(new Promise(async resolve => {
-	const cache = await caches.open(name),
-		cached = await cache.match(ev.request);
-	let res;
+self.addEventListener('fetch', ev => ev.respondWith(new Promise(async (resolve, reject) => {
+	let result;
 
-	try {
-		if (ev.request.method === 'GET') {
-			const now = new Date().getTime();
+	if (ev.request.method === 'GET') {
+		const cache = await caches.open(name),
+			cached = await cache.match(ev.request),
+			now = new Date().getTime();
 
-			if (cached !== void 0 && new Date(cached.headers.get('date')).getTime() + Number((cached.headers.get('cache-control') || '').replace(/[^\d]/g, '') || timeout) * 1e3 > now) {
-				res = cached.clone();
-			} else {
-				res = await fetch(ev.request);
-
-				if (res.status === 200 && res.type === 'basic' && cacheable(res.headers.get('cache-control'))) {
-					await cache.put(ev.request, res.clone());
-				}
-			}
+		if (cached !== void 0 && new Date(cached.headers.get('date')).getTime() + Number((cached.headers.get('cache-control') || '').replace(/[^\d]/g, '') || timeout) * 1e3 > now) {
+			result = cached.clone();
 		} else {
-			res = await fetch(ev.request);
+			result = await fetch(ev.request);
+			result.then(res => {
+				if (res.status === 200 && res.type === 'basic' && cacheable(res.headers.get('cache-control'))) {
+					cache.put(ev.request, res.clone());
+				}
 
-			if (ev.request.method !== 'HEAD' && ev.request.method !== 'OPTIONS' && res.status < 400 && res.type === 'basic') {
-				await cache.delete(ev.request);
-			}
+				return res;
+			}).catch(err => {
+				if (cached === void 0) {
+					reject(err);
+				} else {
+					resolve(cached);
+				}
+			});
 		}
-	} catch (err) {
-		void 0;
 	}
 
-	resolve(res);
+	resolve(result);
 })));
