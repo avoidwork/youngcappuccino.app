@@ -22,7 +22,7 @@ self.addEventListener('install', ev => {
 	return ev.waitUntil(caches.open(name).then(cache => cache.addAll(urls)).catch(() => void 0));
 });
 
-self.addEventListener('fetch', ev => ev.respondWith(new Promise(async (resolve, reject) => {
+self.addEventListener('fetch', ev => ev.respondWith(new Promise(async (resolve) => {
 	let result;
 
 	if (ev.request.method === 'GET') {
@@ -33,19 +33,12 @@ self.addEventListener('fetch', ev => ev.respondWith(new Promise(async (resolve, 
 		if (cached !== void 0 && new Date(cached.headers.get('date')).getTime() + Number((cached.headers.get('cache-control') || '').replace(/[^\d]/g, '') || timeout) * 1e3 > now) {
 			result = cached.clone();
 		} else {
-			result = await fetch(ev.request);
-			result.then(res => {
+			result = fetch(ev.request).then(res => {
 				if (res.status === 200 && res.type === 'basic' && cacheable(res.headers.get('cache-control'))) {
 					cache.put(ev.request, res.clone());
 				}
 
 				return res;
-			}).catch(err => {
-				if (cached === void 0) {
-					reject(err);
-				} else {
-					resolve(cached);
-				}
 			});
 		}
 	}
