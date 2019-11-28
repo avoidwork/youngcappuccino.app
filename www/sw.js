@@ -12,7 +12,7 @@ const name = "young-cappuccino-cache-v4",
 		"/assets/img/logo.svg",
 		"/assets/img/fav_icon.png"
 	],
-	cacheable = (arg = '') => (arg.includes('no-cache') || arg.includes('no-store') || arg.includes('max-age=0')) === false;
+	cacheable = arg => (arg.includes('no-cache') || arg.includes('no-store') || arg.includes('max-age=0')) === false;
 
 self.addEventListener('activate', ev => ev.waitUntil(caches.keys().then(args => Promise.all(args.filter(i => i !== name).map(i => caches.delete(i)))).catch(() => void 0)));
 
@@ -34,7 +34,7 @@ self.addEventListener('fetch', ev => ev.respondWith(new Promise(async (resolve) 
 			result = cached.clone();
 		} else {
 			result = fetch(ev.request).then(res => {
-				if (res.status === 200 && res.type === 'basic' && cacheable(res.headers.get('cache-control'))) {
+				if (res.type === 'basic' && res.status === 200 && cacheable(res.headers.get('cache-control') || '')) {
 					cache.put(ev.request, res.clone());
 				}
 
