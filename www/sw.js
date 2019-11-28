@@ -31,9 +31,15 @@ self.addEventListener('fetch', ev => ev.respondWith(new Promise(async (resolve) 
 			cached = await cache.match(ev.request),
 			now = new Date().getTime();
 
-		if (cached !== void 0 && new Date(cached.headers.get('date')).getTime() + Number((cached.headers.get('cache-control') || '').replace(/[^\d]/g, '') || timeout) * 1e3 > now) {
-			result = cached.clone();
-		} else {
+		if (cached !== void 0) {
+			const url = new URL(cached.url);
+
+			if (urls.includes(url.pathname) || new Date(cached.headers.get('date')).getTime() + Number((cached.headers.get('cache-control') || '').replace(/[^\d]/g, '') || timeout) * 1e3 > now) {
+				result = cached.clone();
+			}
+		}
+
+		if (result === void 0) {
 			result = fetch(ev.request).then(res => {
 				if (res.type === 'basic' && res.status === 200 && cacheable(res.headers.get('cache-control') || '')) {
 					cache.put(ev.request, res.clone());
