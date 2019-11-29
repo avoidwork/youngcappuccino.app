@@ -15,7 +15,7 @@ const name = "young-cappuccino-cache-v6",
 		"/assets/img/icon_192.png",
 		"/assets/img/icon_512.png"
 	],
-	cacheable = arg => (arg.includes('no-cache') || arg.includes('no-store') || arg.includes('max-age=0')) === false;
+	cacheable = arg => (arg.includes('no-store') || arg.includes('max-age=0')) === false;
 
 self.addEventListener('activate', ev => ev.waitUntil(caches.keys().then(args => Promise.all(args.filter(i => i !== name).map(i => caches.delete(i)))).catch(() => void 0)));
 
