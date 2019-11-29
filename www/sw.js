@@ -1,7 +1,8 @@
-const name = "young-cappuccino-cache-v7",
+const name = "young-cappuccino-cache-v8",
 	timeout = 18e2, // 30 min
 	urls = [
 		"/",
+		"/manifest.json",
 		"/assets/css/bulma.css",
 		"/assets/css/style.css",
 		"/assets/css/style.css.map",
