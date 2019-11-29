@@ -51,11 +51,17 @@ self.addEventListener('fetch', ev => ev.respondWith(new Promise(async (resolve) 
 				}
 
 				return res;
+			}).catch(err => {
+				if (cached === void 0) {
+					throw err;
+				}
+
+				return cached;
 			});
 		}
 	} else {
 		result = fetch(ev.request).then(res => {
-			if (res.type === 'basic' && res.status >= 200 && res.status < 400 && method !== 'HEAD' && method !== 'OPTIONS') {
+			if ((res.type === 'basic' || res.type === 'cors') && res.status >= 200 && res.status < 400 && method !== 'HEAD' && method !== 'OPTIONS') {
 				cache.delete(ev.request);
 			}
 
