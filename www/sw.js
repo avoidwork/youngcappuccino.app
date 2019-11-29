@@ -44,7 +44,7 @@ self.addEventListener('fetch', ev => ev.respondWith(new Promise(async (resolve) 
 
 		if (result === void 0) {
 			result = fetch(ev.request).then(res => {
-				if (res.type === 'basic' && res.status === 200 && cacheable(res.headers.get('cache-control') || '')) {
+				if ((res.type === 'basic' || res.type === 'cors') && res.status === 200 && cacheable(res.headers.get('cache-control') || '')) {
 					cache.put(ev.request, res.clone());
 				}
 
