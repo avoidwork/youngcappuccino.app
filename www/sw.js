@@ -1,4 +1,4 @@
-const name = "young-cappuccino-cache-v5",
+const name = "young-cappuccino-cache-v6",
 	timeout = 18e2, // 30 min
 	urls = [
 		"/",
@@ -11,7 +11,9 @@ const name = "young-cappuccino-cache-v5",
 		"/assets/css/font-awesome/webfonts/fa-solid-900.woff2",
 		"/assets/js/app.js",
 		"/assets/img/logo.svg",
-		"/assets/img/fav_icon.png"
+		"/assets/img/fav_icon.png",
+		"/assets/img/icon_192.png",
+		"/assets/img/icon_512.png"
 	],
 	cacheable = arg => (arg.includes('no-cache') || arg.includes('no-store') || arg.includes('max-age=0')) === false;
 
