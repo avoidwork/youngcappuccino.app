@@ -1,11 +1,21 @@
 "use strict";
 
-const version = 10,
+const version = 11,
 	name = `ycap-v${version}`,
 	timeout = 1800,
-	urls = ["/","/manifest.json","/assets/css/bulma.css","/assets/css/style.css","/assets/css/font-awesome/css/all.css","/assets/css/font-awesome/css/all.min.css","/assets/css/font-awesome/css/brands.css","/assets/css/font-awesome/css/brands.min.css","/assets/css/font-awesome/css/fontawesome.css","/assets/css/font-awesome/css/fontawesome.min.css","/assets/css/font-awesome/css/regular.css","/assets/css/font-awesome/css/regular.min.css","/assets/css/font-awesome/css/solid.css","/assets/css/font-awesome/css/solid.min.css","/assets/css/font-awesome/css/svg-with-js.css","/assets/css/font-awesome/css/svg-with-js.min.css","/assets/css/font-awesome/css/v4-shims.css","/assets/css/font-awesome/css/v4-shims.min.css","/assets/css/font-awesome/webfonts/fa-brands-400.eot","/assets/css/font-awesome/webfonts/fa-brands-400.svg","/assets/css/font-awesome/webfonts/fa-brands-400.ttf","/assets/css/font-awesome/webfonts/fa-brands-400.woff","/assets/css/font-awesome/webfonts/fa-brands-400.woff2","/assets/css/font-awesome/webfonts/fa-regular-400.eot","/assets/css/font-awesome/webfonts/fa-regular-400.svg","/assets/css/font-awesome/webfonts/fa-regular-400.ttf","/assets/css/font-awesome/webfonts/fa-regular-400.woff","/assets/css/font-awesome/webfonts/fa-regular-400.woff2","/assets/css/font-awesome/webfonts/fa-solid-900.eot","/assets/css/font-awesome/webfonts/fa-solid-900.svg","/assets/css/font-awesome/webfonts/fa-solid-900.ttf","/assets/css/font-awesome/webfonts/fa-solid-900.woff","/assets/css/font-awesome/webfonts/fa-solid-900.woff2","/assets/img/fav_icon.png","/assets/img/icon_192.png","/assets/img/icon_512.png","/assets/img/logo.svg","/assets/js/app.js"],
-	failover = "",
+	urls = ["/","/manifest.json","/404.html","/assets/css/bulma.css","/assets/css/style.css","/assets/css/font-awesome/css/all.css","/assets/css/font-awesome/css/all.min.css","/assets/css/font-awesome/css/brands.css","/assets/css/font-awesome/css/brands.min.css","/assets/css/font-awesome/css/fontawesome.css","/assets/css/font-awesome/css/fontawesome.min.css","/assets/css/font-awesome/css/regular.css","/assets/css/font-awesome/css/regular.min.css","/assets/css/font-awesome/css/solid.css","/assets/css/font-awesome/css/solid.min.css","/assets/css/font-awesome/css/svg-with-js.css","/assets/css/font-awesome/css/svg-with-js.min.css","/assets/css/font-awesome/css/v4-shims.css","/assets/css/font-awesome/css/v4-shims.min.css","/assets/css/font-awesome/webfonts/fa-brands-400.eot","/assets/css/font-awesome/webfonts/fa-brands-400.svg","/assets/css/font-awesome/webfonts/fa-brands-400.ttf","/assets/css/font-awesome/webfonts/fa-brands-400.woff","/assets/css/font-awesome/webfonts/fa-brands-400.woff2","/assets/css/font-awesome/webfonts/fa-regular-400.eot","/assets/css/font-awesome/webfonts/fa-regular-400.svg","/assets/css/font-awesome/webfonts/fa-regular-400.ttf","/assets/css/font-awesome/webfonts/fa-regular-400.woff","/assets/css/font-awesome/webfonts/fa-regular-400.woff2","/assets/css/font-awesome/webfonts/fa-solid-900.eot","/assets/css/font-awesome/webfonts/fa-solid-900.svg","/assets/css/font-awesome/webfonts/fa-solid-900.ttf","/assets/css/font-awesome/webfonts/fa-solid-900.woff","/assets/css/font-awesome/webfonts/fa-solid-900.woff2","/assets/img/fav_icon.png","/assets/img/icon_192.png","/assets/img/icon_512.png","/assets/img/logo.svg","/assets/js/app.js"],
+	failover = "/404.html",
 	cacheable = arg => (arg.includes("no-store") || arg.includes("max-age=0")) === false;
+
+async function error (cache) {
+	let result;
+
+	if (failover.length > 0) {
+		result = await cache.match(failover);
+	}
+
+	return result !== void 0 ? result : Response.error();
+}
 
 function log (arg) {
 	console.log(`[serviceWorker:${new Date().getTime()}] ${arg}`);
@@ -70,7 +80,7 @@ self.addEventListener("fetch", ev => ev.respondWith(new Promise(async resolve =>
 				}
 
 				return res;
-			}).catch(() => failover.length > 0 ? cache.match(failover) : Response.error());
+			}).catch(() => error(cache));
 		}
 	} else {
 		result = fetch(ev.request).then(res => {
@@ -79,7 +89,7 @@ self.addEventListener("fetch", ev => ev.respondWith(new Promise(async resolve =>
 			}
 
 			return res;
-		}).catch(() => failover.length > 0 ? cache.match(failover) : Response.error());
+		}).catch(() => error(cache));
 	}
 
 	resolve(result);
